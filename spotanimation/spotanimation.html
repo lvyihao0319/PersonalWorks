@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>光斑动画</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        html,body{
+            height: 100%;
+            overflow: hidden;
+            background: black;
+            text-align: center;
+        }
+        h1{
+            margin-top: 100px;
+            display: inline-block;
+            color: rgba(255,255,255,.3);
+            font: bold 80px "微软雅黑";
+            background: linear-gradient(120deg, rgba(255,255,255,0) 100px, rgba(255,255,255,1) 180px, rgba(255,255,255,0) 260px);
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+        }
+        h1{
+            background-position: 500px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>车到山前必有路，事情总会一点一点做完的</h1>
+    <script>
+        var h1 =document.querySelector("h1");
+        var flag = -160;
+        setInterval(function () {
+            flag+=10;
+            if (flag === 1500){
+                flag=-160;
+            }
+            h1.style.backgroundPosition = flag+"px";
+        },1000/60)
+    </script>
+</body>
+</html>

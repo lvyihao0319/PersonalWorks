@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        ol{
+            list-style: none;
+        }
+
+        #wrap2{
+            position: absolute;
+            width: 660px;
+            height: 660px;
+            border: 20px solid #ff1515;
+            background-color: #b70d0d;
+            border-radius: 50%;
+        }
+
+        #wrap1{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -315px;
+            margin-top: -315px;
+            width: 630px;
+            height: 630px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+
+        #wrap{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -300px;
+            margin-top: -300px;
+            width: 600px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+
+        ul > li{
+            position: absolute;
+            left: 295px;
+            top: 0px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #a3a3a3;
+            transform-origin: center 300px;
+        }
+
+        ul > li:nth-child(5n+1){
+            top: -15px;
+            height: 30px;
+            width: 10px;
+            background-color: #666665;
+            border-radius: 0;
+            opacity: 100%;
+            transform-origin: center 315px;
+        }
+
+        #wrap > .hour{
+            position: absolute;
+            left: 292px;
+            top: 160px;
+            width: 16px;
+            height: 140px;
+            background: #666665;
+            transform-origin: center bottom;
+        }
+
+        #wrap > .min{
+            position: absolute;
+            left: 293px;
+            top: 116px;
+            width: 14px;
+            height: 184px;
+            background: #666665;
+            transform-origin: center bottom;
+        }
+
+        #wrap > .sec{
+            position: absolute;
+            left: 296px;
+            top: 100px;
+            width: 8px;
+            height: 200px;
+            background: #de6857;
+            transform-origin: center bottom;
+        }
+
+        #wrap > .triangle {
+            position: absolute;
+            left: 280px;
+            top: 60px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid #de6857;
+            transform-origin: center 240px;
+        }
+
+        #wrap > .icon{
+            position: absolute;
+            left: 276px;
+            top: 276px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #e9887a;
+        }
+
+        #wrap > .icon1{
+            position: absolute;
+            left: 284px;
+            top: 284px;
+            width: 16px;
+            height: 16px;
+            border: 8px solid #edb7af;
+            border-radius: 50%;
+            background: #a53128;
+        }
+
+        #wrap > .icon2{
+            position: absolute;
+            left: 292px;
+            top: 292px;
+            width: 14px;
+            height: 14px;
+            border-radius: 80% 60% 80% 60%;
+            background: #c44a3d;
+        }
+
+        ol > li{
+            position: absolute;
+            z-index:9999;
+            left: 288px;
+            top: 20px;
+            border-radius: 50%;
+            transform-origin: center 280px;
+            font-size: 50px;
+            font-family: 宋体;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrap2">
+        <div id="wrap1">
+            <div id="wrap">
+                <ul></ul>
+                <ol></ol>
+                <div class="hour"></div>
+                <div class="min"></div>
+                <div class="sec"></div>
+                <div class="triangle"></div>
+                <div class="icon"></div>
+                <div class="icon1"></div>
+                <div class="icon2"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var hourNode = document.querySelector("#wrap > .hour");
+            var minNode = document.querySelector("#wrap > .min");
+            var secNode = document.querySelector("#wrap > .sec");
+            var triangleNode = document.querySelector("#wrap > .triangle");
+            var ulNode = document.querySelector("#wrap > ul");
+            var styleNode = document.createElement("style");
+            var olNode = document.querySelector("#wrap > ol");
+            var liHtml = "";
+            var cssText = "";
+            for (var i = 0; i < 60; i++) {
+                liHtml += "<li></li>";
+                cssText += "ul > li:nth-child("+(i+1)+"){transform: rotate("+(i*6)+"deg);}"
+            }
+            ulNode.innerHTML = liHtml;
+            styleNode.innerHTML = cssText;
+
+
+            var liHtml1 = "";
+            var cssText1 = "";
+            var a =[12,1,2,3,4,5,6,7,8,9,10,11];
+            for (var i = 0; i < 12; i++) {
+                liHtml1 += "<li>"+a[i]+"</li>";
+                cssText1 += "ol > li:nth-child("+(i+1)+"){transform: rotate("+(i*30)+"deg);}"
+            }
+            olNode.innerHTML = liHtml1;
+            styleNode.innerHTML += cssText1;
+            document.head.appendChild(styleNode);
+
+            move();
+            setInterval(move,1000)
+            function move() {
+                var date = new Date();
+                var s = date.getSeconds();
+                var m = date.getMinutes()+s/60;
+                var h = date.getHours()+m/60;
+
+                hourNode.style.transform="rotate("+(30*h)+"deg)";
+                minNode.style.transform="rotate("+(6*m)+"deg)";
+                secNode.style.transform="rotate("+(6*s)+"deg)";
+                triangleNode.style.transform="rotate("+(6*s)+"deg)";
+            }
+        }
+    </script>
+</body>
+</html>
